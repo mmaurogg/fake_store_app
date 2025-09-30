@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Fake Store App',
-      theme: ThemeData(colorScheme: AppTheme.themeApp.colorScheme),
+      theme: ThemeData(colorScheme: AppTheme().themeApp.colorScheme),
       home: const HomePage(),
     );
   }

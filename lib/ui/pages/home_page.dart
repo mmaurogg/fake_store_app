@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
               label: 'Profile',
               activeIcon: Icon(
                 Icons.person,
-                color: AppTheme.themeApp.colorScheme.primary,
+                color: AppTheme().themeApp.colorScheme.primary,
               ),
             ),
             BottomNavigationBarItem(
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
               label: 'home',
               activeIcon: Icon(
                 Icons.shopping_bag,
-                color: AppTheme.themeApp.colorScheme.primary,
+                color: AppTheme().themeApp.colorScheme.primary,
               ),
             ),
             BottomNavigationBarItem(
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               label: 'Cart',
               activeIcon: Icon(
                 Icons.shopping_cart,
-                color: AppTheme.themeApp.colorScheme.primary,
+                color: AppTheme().themeApp.colorScheme.primary,
               ),
             ),
           ],

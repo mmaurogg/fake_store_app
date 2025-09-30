@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static ThemeData get themeApp => ThemeData(
+  final ThemeData _themeApp = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.indigo[50]!,
@@ -16,4 +16,12 @@ class AppTheme {
       foregroundColor: Colors.white,
     ),
   );
+
+  ThemeData get themeApp => _themeApp;
+
+  TextStyle get titleStyle =>
+      const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+  TextStyle get titleSmallStyle =>
+      const TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
 }

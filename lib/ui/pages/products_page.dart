@@ -1,5 +1,5 @@
 import 'package:fake_store_app/ui/providers/fake_store_provider.dart';
-import 'package:fake_store_app/ui/widgets/card_widget.dart';
+import 'package:fake_store_app/ui/widgets/short_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,7 @@ class ProductsPage extends ConsumerStatefulWidget {
 }
 
 class _ProductsPageState extends ConsumerState<ProductsPage> {
-  final ScrollController _ScrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     final storeProvider = ref.watch(fakeStoreProvider);
@@ -26,16 +26,16 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Scrollbar(
-                  controller: _ScrollController,
+                  controller: _scrollController,
                   child: SingleChildScrollView(
-                    controller: _ScrollController,
+                    controller: _scrollController,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ...storeProvider.products.map(
                           (product) => Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: CustomCardView(
+                            child: ShortCardWidget(
                               product: product!,
                               onTap: () {},
                             ),
