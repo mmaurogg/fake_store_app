@@ -1,0 +1,92 @@
+import 'package:fake_store_app/config/app_theme.dart';
+import 'package:fake_store_app/ui/pages/cart_page.dart';
+import 'package:fake_store_app/ui/pages/products_page.dart';
+import 'package:fake_store_app/ui/pages/profile_page.dart';
+import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _pageController = PageController(initialPage: 1);
+
+  int currentIndex = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('Fake Store App'),
+          elevation: 0,
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                //AlertNotification(context, 'En construcción', 'Pronto podrás disfrutar de esta funcionalidad');
+              },
+              icon: Icon(Icons.search),
+            ),
+
+            IconButton(
+              onPressed: () {
+                //Salir de la app;
+              },
+              icon: Icon(Icons.exit_to_app),
+            ),
+          ],
+        ),
+        body: PageView(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [ProfilePage(), ProductsPage(), CartPage()],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (value) {
+            setState(() {
+              currentIndex = value;
+              _pageController.animateToPage(
+                value,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+              );
+              //_pageController.jumpToPage(value);
+              currentIndex = value;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profile',
+              activeIcon: Icon(
+                Icons.person,
+                color: AppTheme.themeApp.colorScheme.primary,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_bag_outlined),
+              label: 'home',
+              activeIcon: Icon(
+                Icons.shopping_bag,
+                color: AppTheme.themeApp.colorScheme.primary,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart_outlined),
+              label: 'Cart',
+              activeIcon: Icon(
+                Icons.shopping_cart,
+                color: AppTheme.themeApp.colorScheme.primary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
