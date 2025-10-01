@@ -39,6 +39,24 @@ class CartNotifier extends Notifier<CartState> {
     );
   }
 
+  Future<void> postUserCart(Cart cart) async {
+    state = state.copyWith(isLoading: true);
+    var response = await _fakeStore.cart.addCart(cart);
+
+    response!.fold(
+      (error) {
+        state = state.copyWith(isLoading: false, error: error.message);
+      },
+      (cart) {
+        if (cart != null) {
+          createNewCart();
+        } else {
+          state = state.copyWith(isLoading: false, error: "algo salio mal");
+        }
+      },
+    );
+  }
+
   void createNewCart() {
     final userId = ref.watch(authProvider).user?.id ?? 0;
     Cart newCart = Cart(
