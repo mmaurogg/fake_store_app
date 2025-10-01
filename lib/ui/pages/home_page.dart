@@ -2,19 +2,33 @@ import 'package:fake_store_app/config/app_theme.dart';
 import 'package:fake_store_app/ui/pages/cart_page.dart';
 import 'package:fake_store_app/ui/pages/products_page.dart';
 import 'package:fake_store_app/ui/pages/profile_page.dart';
+import 'package:fake_store_app/ui/providers/cart_provider.dart';
+import 'package:fake_store_app/ui/providers/product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   final _pageController = PageController(initialPage: 1);
 
   int currentIndex = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(_initPages);
+  }
+
+  _initPages([_]) {
+    ref.read(productProvider.notifier).getAllProducts();
+    ref.read(cartProvider.notifier).getUserCart(1);
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -19,9 +19,21 @@ class AppTheme {
 
   ThemeData get themeApp => _themeApp;
 
-  TextStyle get titleStyle =>
-      const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+  TextStyle get titleStyle => const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
 
-  TextStyle get titleSmallStyle =>
-      const TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  TextStyle get titleSmallStyle => const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+
+  TextStyle get titleHighlightStyle => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: _themeApp.colorScheme.primary,
+  );
 }

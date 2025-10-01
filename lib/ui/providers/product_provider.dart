@@ -1,18 +1,18 @@
 import 'package:fake_store/fake_store.dart';
+import 'package:fake_store_app/config/dependencies.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
-final fakeStoreProvider =
-    StateNotifierProvider<FakeStoreNotifier, FakeStoreState>((ref) {
-      final fakeStore = FakeStore();
-      return FakeStoreNotifier(fakeStore);
-    });
+final productProvider = StateNotifierProvider<ProductNotifier, ProductState>((
+  ref,
+) {
+  final fakeStore = ref.watch(fakeStoreProvider);
+  return ProductNotifier(fakeStore);
+});
 
-class FakeStoreNotifier extends StateNotifier<FakeStoreState> {
+class ProductNotifier extends StateNotifier<ProductState> {
   final FakeStore _fakeStore;
 
-  FakeStoreNotifier(this._fakeStore) : super(FakeStoreState()) {
-    getAllProducts();
-  }
+  ProductNotifier(this._fakeStore) : super(ProductState());
 
   Future<void> getAllProducts() async {
     state = state.copyWith(isLoading: true);
@@ -28,23 +28,19 @@ class FakeStoreNotifier extends StateNotifier<FakeStoreState> {
   }
 }
 
-class FakeStoreState {
+class ProductState {
   final List<Product?> products;
   final bool isLoading;
   final String? error;
 
-  FakeStoreState({
-    this.products = const [],
-    this.isLoading = false,
-    this.error,
-  });
+  ProductState({this.products = const [], this.isLoading = false, this.error});
 
-  FakeStoreState copyWith({
+  ProductState copyWith({
     List<Product?>? products,
     bool? isLoading,
     String? error,
   }) {
-    return FakeStoreState(
+    return ProductState(
       products: products ?? this.products,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,

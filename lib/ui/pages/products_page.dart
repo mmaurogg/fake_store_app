@@ -1,4 +1,5 @@
-import 'package:fake_store_app/ui/providers/fake_store_provider.dart';
+import 'package:fake_store_app/ui/pages/product_detail_page.dart';
+import 'package:fake_store_app/ui/providers/product_provider.dart';
 import 'package:fake_store_app/ui/widgets/short_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +15,7 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
   final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    final storeProvider = ref.watch(fakeStoreProvider);
+    final productsState = ref.watch(productProvider);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -32,26 +33,36 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ...storeProvider.products.map(
-                          (product) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ShortCardWidget(
-                              product: product!,
-                              onTap: () {},
-                            ),
-                          ),
-                        ),
-                        if (storeProvider.products.isEmpty)
-                          Center(
+                        if (productsState.isLoading)
+                          const Center(child: CircularProgressIndicator())
+                        else if (productsState.products.isEmpty)
+                          const Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: CircularProgressIndicator(),
+                              padding: EdgeInsets.all(20.0),
+                              child: Text('No hay productos para mostrar'),
+                            ),
+                          )
+                        else
+                          ...productsState.products.map(
+                            (product) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ShortCardWidget(
+                                product: product!,
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailPage(product: product),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        if (storeProvider.error != null)
+                        if (productsState.error != null)
                           Center(
                             child: Text(
-                              'Error: ${storeProvider.products}',
+                              'Error: ${productsState.products}',
                               style: TextStyle(color: Colors.red),
                             ),
                           ),
