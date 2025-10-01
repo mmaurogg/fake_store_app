@@ -1,5 +1,6 @@
 import 'package:fake_store/fake_store.dart';
 import 'package:fake_store_app/config/dependencies.dart';
+import 'package:fake_store_app/ui/providers/auth_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final cartProvider = NotifierProvider<CartNotifier, CartState>(() {
@@ -24,18 +25,28 @@ class CartNotifier extends Notifier<CartState> {
         state = state.copyWith(isLoading: false, error: error.message);
       },
       (carts) {
-        final userCart = carts.firstWhere(
-          (element) => element?.userId == userId,
-        );
+        Cart? userCart;
+        try {
+          userCart = carts.firstWhere((element) => element?.userId == userId);
+        } catch (e) {}
+
         if (userCart != null) {
           state = state.copyWith(cart: userCart, isLoading: false, error: null);
+        } else {
+          createNewCart();
         }
       },
     );
   }
 
   void createNewCart() {
-    Cart newCart = Cart(id: 0, userId: 0, date: DateTime.now(), products: []);
+    final userId = ref.watch(authProvider).user?.id ?? 0;
+    Cart newCart = Cart(
+      id: 11,
+      userId: userId,
+      date: DateTime.now(),
+      products: [],
+    );
     state = state.copyWith(isLoading: false, cart: newCart);
   }
 
@@ -52,12 +63,12 @@ class CartNotifier extends Notifier<CartState> {
     state = state.copyWith(cart: updatedCart);
   }
 
-  void removeProductFromCart(Product product) {
-    if (product.id == null || state.cart!.products == null) return;
+  void removeProductFromCart(int? productId) {
+    if (productId == null || state.cart!.products == null) return;
 
     final currentProducts = state.cart!.products!;
     final newProducts = List<CartProduct>.from(currentProducts);
-    newProducts.removeWhere((element) => element.productId == product.id);
+    newProducts.removeWhere((element) => element.productId == productId);
 
     final updatedCart = state.cart!.copyWith(products: newProducts);
     state = state.copyWith(cart: updatedCart);

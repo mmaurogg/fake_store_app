@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:fake_store_app/config/app_theme.dart';
+import 'package:fake_store_app/ui/pages/auth_page.dart';
 import 'package:fake_store_app/ui/pages/cart_page.dart';
 import 'package:fake_store_app/ui/pages/products_page.dart';
 import 'package:fake_store_app/ui/pages/profile_page.dart';
+import 'package:fake_store_app/ui/providers/auth_provider.dart';
 import 'package:fake_store_app/ui/providers/cart_provider.dart';
 import 'package:fake_store_app/ui/providers/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +31,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   _initPages([_]) {
     ref.read(productProvider.notifier).getAllProducts();
-    ref.read(cartProvider.notifier).getUserCart(1);
+
+    int userId = ref.watch(authProvider).user?.id ?? 0;
+    ref.read(cartProvider.notifier).getUserCart(userId);
   }
 
   @override
@@ -41,14 +47,12 @@ class _HomePageState extends ConsumerState<HomePage> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                //AlertNotification(context, 'En construcción', 'Pronto podrás disfrutar de esta funcionalidad');
-              },
-              icon: Icon(Icons.search),
-            ),
+                ref.read(authProvider.notifier).logout();
 
-            IconButton(
-              onPressed: () {
-                //Salir de la app;
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const AuthPage()),
+                  (Route<dynamic> route) => false,
+                );
               },
               icon: Icon(Icons.exit_to_app),
             ),

@@ -25,13 +25,19 @@ class AppTheme {
     color: Colors.black,
   );
 
+  TextStyle get titleHighlightStyle => TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: _themeApp.colorScheme.primary,
+  );
+
   TextStyle get titleSmallStyle => const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
 
-  TextStyle get titleHighlightStyle => TextStyle(
+  TextStyle get titleSmallHighlightStyle => TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: _themeApp.colorScheme.primary,

@@ -34,7 +34,7 @@ class ProductDetailPage extends ConsumerWidget {
                   children: [
                     Text(
                       product.price.toString(),
-                      style: AppTheme().titleHighlightStyle,
+                      style: AppTheme().titleSmallHighlightStyle,
                       textAlign: TextAlign.start,
                     ),
                   ],

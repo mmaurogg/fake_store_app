@@ -1,5 +1,5 @@
 import 'package:fake_store_app/config/app_theme.dart';
-import 'package:fake_store_app/ui/pages/home_page.dart';
+import 'package:fake_store_app/ui/pages/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fake Store App',
       theme: ThemeData(colorScheme: AppTheme().themeApp.colorScheme),
-      home: const HomePage(),
+      home: const AuthPage(),
     );
   }
 }
