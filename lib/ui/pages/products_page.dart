@@ -17,6 +17,17 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
   Widget build(BuildContext context) {
     final productsState = ref.watch(productProvider);
 
+    if (productsState.isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else if (productsState.products.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Text('No hay productos para mostrar'),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -33,32 +44,22 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (productsState.isLoading)
-                          const Center(child: CircularProgressIndicator())
-                        else if (productsState.products.isEmpty)
-                          const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text('No hay productos para mostrar'),
-                            ),
-                          )
-                        else
-                          ...productsState.products.map(
-                            (product) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ShortCardWidget(
-                                product: product!,
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailPage(product: product),
-                                    ),
-                                  );
-                                },
-                              ),
+                        ...productsState.products.map(
+                          (product) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ShortCardWidget(
+                              product: product!,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetailPage(product: product),
+                                  ),
+                                );
+                              },
                             ),
                           ),
+                        ),
                         if (productsState.error != null)
                           Center(
                             child: Text(

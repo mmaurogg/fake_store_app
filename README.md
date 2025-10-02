@@ -4,7 +4,7 @@ Una aplicación Flutter que consume el package [dart_package_fake_store](https:/
 
 Este proyecto sirve como un ejemplo práctico de cómo construir una aplicación de comercio electrónico utilizando Flutter, Riverpod y un package personalizado.
 
-## ✨ Características
+## Características
 
 - **Autenticación de Usuario**:
   - Inicio de sesión con credenciales.
@@ -16,7 +16,8 @@ Este proyecto sirve como un ejemplo práctico de cómo construir una aplicación
   - Carga y muestra una lista de productos del carrito del usuario desde la API.
   - Boton de pago para envio de carrito.
 
-- **Arquitectura**: Arquitectura basada en Riverpod para manejo de estado con el uso de providers.
+- **Arquitectura**: 
+  - Arquitectura basada en Riverpod para manejo de estado con el uso de providers.
 
 ## Getting Started
 
