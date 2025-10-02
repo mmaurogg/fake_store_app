@@ -38,6 +38,11 @@ flutter pub get
 flutter run
 ```
 
+## Requisitos
+
+- Flutter SDK >= 3.9.2
+- Dart >= 3.9.2
+
 ## Pila Tecnológica y Dependencias Clave
 
 - **Framework**: [Flutter](https://flutter.dev/)
