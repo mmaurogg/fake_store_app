@@ -3,6 +3,7 @@ import 'package:fake_store_app/config/dependencies.dart';
 import 'package:fake_store_app/ui/pages/home_page.dart';
 import 'package:fake_store_app/ui/providers/auth_provider.dart';
 import 'package:fake_store_app/ui/widgets/auth_form.dart';
+import 'package:fake_store_app/ui/widgets/custom_outline_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,15 +37,15 @@ class AuthPage extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '¿Deseas con un usuaruioo de prueba?',
+                    '¿Deseas con un usuaruio de prueba?',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
 
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton.icon(
-                      icon: const Icon(Icons.people),
-                      label: const Text('Iniciar con cualquier usuario'),
+                    child: CustomOutlineButton(
+                      icon: Icons.people,
+                      text: 'Iniciar con cualquier usuario',
                       onPressed: () async {
                         var response = await ref
                             .read(fakeStoreProvider)
@@ -56,13 +57,6 @@ class AuthPage extends ConsumerWidget {
                           }
                         });
                       },
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor:
-                            AppTheme().themeApp.colorScheme.primary,
-                        side: BorderSide(
-                          color: AppTheme().themeApp.colorScheme.primary,
-                        ),
-                      ),
                     ),
                   ),
                 ],

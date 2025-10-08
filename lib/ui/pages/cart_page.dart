@@ -1,5 +1,6 @@
-import 'package:fake_store_app/config/app_theme.dart';
 import 'package:fake_store_app/ui/providers/cart_provider.dart';
+import 'package:fake_store_app/ui/widgets/cart_product_card.dart';
+import 'package:fake_store_app/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,23 +38,13 @@ class CartPage extends ConsumerWidget {
                   itemCount: productsInCart.length,
                   itemBuilder: (context, index) {
                     final cartProduct = productsInCart[index];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: 4.0,
-                      ),
-                      child: ListTile(
-                        title: Text("Product ID: ${cartProduct.productId}"),
-                        trailing: Text("Quantity: ${cartProduct.quantity}"),
-                        leading: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            ref
-                                .read(cartProvider.notifier)
-                                .removeProductFromCart(cartProduct.productId);
-                          },
-                        ),
-                      ),
+                    return CartProductCard(
+                      cartProduct: cartProduct,
+                      onPressed: () {
+                        ref
+                            .read(cartProvider.notifier)
+                            .removeProductFromCart(cartProduct.productId);
+                      },
                     );
                   },
                 ),
@@ -72,10 +63,13 @@ class CartPage extends ConsumerWidget {
         Column(
           children: [
             Spacer(),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton.icon(
+                CustomButton(
+                  text: "Pagar",
+                  icon: Icons.credit_card,
                   onPressed: cartState.isLoading
                       ? null
                       : () async {
@@ -104,32 +98,6 @@ class CartPage extends ConsumerWidget {
                             ;
                           }
                         },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme().themeApp.colorScheme.primary,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  icon: const Icon(Icons.credit_card),
-                  label: cartState.isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white,
-                            ),
-                          ),
-                        )
-                      : Text(
-                          "Pagar",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                 ),
               ],
             ),
