@@ -79,6 +79,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           },
           items: [
             BottomNavigationBarItem(
+              key: Key('profile_nav_item'),
               icon: Icon(Icons.person_outline),
               label: 'Profile',
               activeIcon: Icon(
@@ -87,6 +88,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
             BottomNavigationBarItem(
+              key: Key('home_nav_item'),
               icon: Icon(Icons.shopping_bag_outlined),
               label: 'home',
               activeIcon: Icon(
@@ -95,6 +97,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
             BottomNavigationBarItem(
+              key: Key('cart_nav_item'),
               icon: Icon(Icons.shopping_cart_outlined),
               label: 'Cart',
               activeIcon: Icon(

@@ -40,6 +40,8 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
                 child: Scrollbar(
                   controller: _scrollController,
                   child: SingleChildScrollView(
+                    key: Key('scroll_products'),
+
                     controller: _scrollController,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -48,12 +50,15 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
                           (product) => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ShortCardWidget(
+                              key: Key('short_card_${product?.id ?? '0'}'),
                               product: product!,
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductDetailPage(product: product),
+                                    builder: (context) => ProductDetailPage(
+                                      key: Key('product_detail_${product.id}'),
+                                      product: product,
+                                    ),
                                   ),
                                 );
                               },
