@@ -1,5 +1,6 @@
 import 'package:fake_store/fake_store.dart';
-import 'package:fake_store_app/config/dependencies.dart';
+import 'package:fake_store_app/domain/usecases/auth_use_case.dart';
+import 'package:fake_store_app/domain/usecases/user_use_case.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authProvider = NotifierProvider<AuthNotifier, AuthState>(() {
@@ -7,17 +8,20 @@ final authProvider = NotifierProvider<AuthNotifier, AuthState>(() {
 });
 
 class AuthNotifier extends Notifier<AuthState> {
-  late FakeStore _fakeStore;
+  late AuthUseCase _authUseCase;
+  late UserUseCase _userUseCase;
 
   @override
   AuthState build() {
-    _fakeStore = ref.watch(fakeStoreProvider);
+    _authUseCase = ref.watch(authUseCaseProvider);
+    _userUseCase = ref.watch(userUseCaseProvider);
+
     return AuthState();
   }
 
   Future<void> login(User user) async {
     state = state.copyWith(isLoading: true, error: null);
-    var response = await _fakeStore.auth.login(user.username!, user.password!);
+    var response = await _authUseCase.login(user.username!, user.password!);
 
     response.fold(
       (error) {
@@ -39,7 +43,7 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> register(User user) async {
     state = state.copyWith(isLoading: true, error: null);
 
-    var response = await _fakeStore.user.addUser(user);
+    var response = await _userUseCase.addUser(user);
 
     response.fold(
       (error) {

@@ -29,10 +29,7 @@ class UserAvatar extends StatelessWidget {
         ),
 
         const SizedBox(height: 24),
-        Text(
-          user.username ?? 'Usuario X',
-          style: AppTheme().titleHighlightStyle,
-        ),
+        Text(user.username ?? 'Usuario X', style: AppTheme.titleHighlightStyle),
       ],
     );
   }

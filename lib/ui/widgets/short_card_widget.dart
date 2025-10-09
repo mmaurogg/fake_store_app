@@ -35,7 +35,7 @@ class ShortCardWidget extends StatelessWidget {
                     ),
                     Text(
                       product.title ?? '',
-                      style: AppTheme().titleSmallStyle,
+                      style: AppTheme.titleSmallStyle,
                       maxLines: 2,
                     ),
                     Text(

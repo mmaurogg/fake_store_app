@@ -1,5 +1,5 @@
 import 'package:fake_store/fake_store.dart';
-import 'package:fake_store_app/config/dependencies.dart';
+import 'package:fake_store_app/domain/usecases/cart_use_case.dart';
 import 'package:fake_store_app/ui/providers/auth_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,28 +8,23 @@ final cartProvider = NotifierProvider<CartNotifier, CartState>(() {
 });
 
 class CartNotifier extends Notifier<CartState> {
-  late FakeStore _fakeStore;
+  late CartUseCase _cartUseCase;
 
   @override
   CartState build() {
-    _fakeStore = ref.watch(fakeStoreProvider);
+    _cartUseCase = ref.watch(cartUseCaseProvider);
     return CartState();
   }
 
   Future<void> getUserCart(int userId) async {
     state = state.copyWith(isLoading: true);
-    var response = await _fakeStore.cart.getCarts();
+    var response = await _cartUseCase.getUserCart(userId);
 
-    response!.fold(
+    response.fold(
       (error) {
         state = state.copyWith(isLoading: false, error: error.message);
       },
-      (carts) {
-        Cart? userCart;
-        try {
-          userCart = carts.firstWhere((element) => element?.userId == userId);
-        } catch (e) {}
-
+      (userCart) {
         if (userCart != null) {
           state = state.copyWith(cart: userCart, isLoading: false, error: null);
         } else {
@@ -41,7 +36,7 @@ class CartNotifier extends Notifier<CartState> {
 
   Future<void> postUserCart(Cart cart) async {
     state = state.copyWith(isLoading: true);
-    var response = await _fakeStore.cart.addCart(cart);
+    var response = await _cartUseCase.postCart(cart);
 
     response!.fold(
       (error) {

@@ -1,22 +1,22 @@
 import 'package:fake_store/fake_store.dart';
-import 'package:fake_store_app/config/dependencies.dart';
+import 'package:fake_store_app/domain/usecases/product_use_case.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 final productProvider = StateNotifierProvider<ProductNotifier, ProductState>((
   ref,
 ) {
-  final fakeStore = ref.watch(fakeStoreProvider);
-  return ProductNotifier(fakeStore);
+  final productUseCase = ref.watch(productUseCaseProvider);
+  return ProductNotifier(productUseCase);
 });
 
 class ProductNotifier extends StateNotifier<ProductState> {
-  final FakeStore _fakeStore;
+  final ProductUseCase _productUseCase;
 
-  ProductNotifier(this._fakeStore) : super(ProductState());
+  ProductNotifier(this._productUseCase) : super(ProductState());
 
   Future<void> getAllProducts() async {
     state = state.copyWith(isLoading: true);
-    var response = await _fakeStore.product.getProducts();
+    var response = await _productUseCase.getAllProducts();
     response.fold(
       (error) {
         state = state.copyWith(isLoading: false, error: error.message);

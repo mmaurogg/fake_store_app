@@ -4,12 +4,12 @@ class AppTheme {
   final ThemeData _themeApp = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.indigo[50]!,
-      primary: Colors.indigoAccent,
-      secondary: Colors.blueGrey,
-      tertiary: Colors.teal,
-      surface: Colors.white,
-      error: Colors.red,
+      seedColor: AppColors.seedColor,
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+      tertiary: AppColors.tertiary,
+      surface: AppColors.surface,
+      error: AppColors.error,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.blueAccent,
@@ -19,27 +19,36 @@ class AppTheme {
 
   ThemeData get themeApp => _themeApp;
 
-  TextStyle get titleStyle => const TextStyle(
+  static const titleStyle = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
 
-  TextStyle get titleHighlightStyle => TextStyle(
+  static const titleHighlightStyle = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: _themeApp.colorScheme.primary,
+    color: AppColors.primary,
   );
 
-  TextStyle get titleSmallStyle => const TextStyle(
+  static const titleSmallStyle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
 
-  TextStyle get titleSmallHighlightStyle => TextStyle(
+  static const titleSmallHighlightStyle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
-    color: _themeApp.colorScheme.primary,
+    color: AppColors.primary,
   );
+}
+
+class AppColors {
+  static const seedColor = Colors.indigo;
+  static const primary = Colors.indigoAccent;
+  static const secondary = Colors.blueGrey;
+  static const tertiary = Colors.teal;
+  static const surface = Colors.white;
+  static const error = Colors.red;
 }

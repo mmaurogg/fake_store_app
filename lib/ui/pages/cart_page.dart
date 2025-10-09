@@ -108,6 +108,4 @@ class CartPage extends ConsumerWidget {
       ],
     );
   }
-
-  _postCart() {}
 }

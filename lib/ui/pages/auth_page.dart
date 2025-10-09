@@ -29,7 +29,7 @@ class AuthPage extends ConsumerWidget {
               Spacer(),
               Text(
                 'Fake Store te da la bienvenida',
-                style: AppTheme().titleHighlightStyle,
+                style: AppTheme.titleHighlightStyle,
               ),
               Spacer(),
 

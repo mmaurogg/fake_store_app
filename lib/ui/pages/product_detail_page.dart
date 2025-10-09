@@ -27,14 +27,14 @@ class ProductDetailPage extends ConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                Text(product.title ?? '', style: AppTheme().titleStyle),
+                Text(product.title ?? '', style: AppTheme.titleStyle),
                 SizedBox(height: 10),
 
                 Row(
                   children: [
                     Text(
                       product.price.toString(),
-                      style: AppTheme().titleSmallHighlightStyle,
+                      style: AppTheme.titleSmallHighlightStyle,
                       textAlign: TextAlign.start,
                     ),
                   ],
@@ -54,7 +54,7 @@ class ProductDetailPage extends ConsumerWidget {
                         RichText(
                           text: TextSpan(
                             text: "Rating: ",
-                            style: AppTheme().titleSmallStyle,
+                            style: AppTheme.titleSmallStyle,
                             children: [
                               WidgetSpan(
                                 child: Icon(Icons.star, color: Colors.amber),
@@ -67,7 +67,7 @@ class ProductDetailPage extends ConsumerWidget {
                         RichText(
                           text: TextSpan(
                             text: "Votes: ",
-                            style: AppTheme().titleSmallStyle,
+                            style: AppTheme.titleSmallStyle,
                             children: [
                               WidgetSpan(
                                 child: Icon(
