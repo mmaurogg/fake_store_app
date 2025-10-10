@@ -14,7 +14,6 @@ void main() {
       ),
     );
 
-    // El placeholder debe mostrarse inicialmente
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
@@ -27,7 +26,6 @@ void main() {
       ),
     );
 
-    // Forzar error manualmente (simula fallo)
     final widget = tester.widget<CachedNetworkImage>(
       find.byType(CachedNetworkImage),
     );

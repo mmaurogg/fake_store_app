@@ -166,7 +166,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e20559d650fae2efd51527e64aeb4c315718646c
+      resolved-ref: "8bd3c17f13fc113065dbcb123a2e34ab414a40a5"
       url: "https://github.com/mmaurogg/dart_package_fake_store.git"
     source: git
     version: "1.0.0"
