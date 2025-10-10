@@ -49,6 +49,8 @@ flutter run
 - **Lenguaje**: [Dart](https://dart.dev/)
 - **Gestión de Estado**: [Flutter Riverpod](https://riverpod.dev/)
 - **Capa de Data**: [Fake Store API](https://fakestoreapi.com/)
+- **Mocktail:** [mocktail](https://pub.dev/packages/mocktail)Creación de mocks para pruebas unitarias.
+- **test:** Framework para escribir pruebas en Dart.
 
 ## Estructura del Proyecto
 
@@ -70,3 +72,27 @@ lib/
 - [Riverpod](https://riverpod.dev)
 
 
+
+## Pruebas (Testing) 
+
+La calidad y fiabilidad del paquete se aseguran mediante las pruebas unitarias. 
+
+### Ejecutar Pruebas Unitarias
+
+Para correr el conjunto de pruebas y verificar que toda la lógica funciona como se espera, utiliza el siguiente comando en tu terminal:
+
+```sh 
+dart test
+```
+ 
+Este comando buscará y ejecutará todos los archivos de prueba (_test.dart) dentro del directorio test/.
+
+### Generar Reporte de Cobertura (Coverage)
+
+Para medir qué porcentaje de tu código está cubierto por las pruebas, puedes generar un reporte de cobertura. Ejecuta:
+
+```sh 
+dart test --coverage
+```
+ 
+Esto creará un archivo coverage/lcov.info. Puedes usar herramientas como la extensión Coverage Gutters en VS Code para visualizar directamente en el editor qué líneas de código están cubiertas por las pruebas.
